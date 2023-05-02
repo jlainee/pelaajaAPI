@@ -1,7 +1,17 @@
-from fastapi import APIRouter
+from sqlalchemy.orm import Session
+from fastapi import APIRouter, Depends
+from models.database import SessionLocal
+from models import crud_players
 
-router = APIRouter()
+router = APIRouter(prefix='/players')
 
-@router.get("/players")
-async def get_players():
-    return 1
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+@router.get('')
+async def get_players(db: Session = Depends(get_db)):
+    return crud_players.read_players(db)

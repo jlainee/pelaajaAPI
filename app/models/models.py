@@ -10,7 +10,7 @@ class Player(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
-    events = relationship("events")
+    # events = relationship("events")
 
 class Events(Base):
     __tablename__ = "events"
@@ -18,5 +18,5 @@ class Events(Base):
     id = Column(Integer, primary_key=True, index=True)
     type = Column(String)
     detail = Column(String)
-    timestamp = Column(DateTime, default=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) # not sure about this
+    timestamp = Column(DateTime, default=datetime.now().strftime("%Y-%m-%d %H:%M:%S")) # not sure about this
     player_id = Column(Integer, ForeignKey("players.id"))
