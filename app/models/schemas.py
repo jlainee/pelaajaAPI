@@ -7,12 +7,15 @@ class PlayerIn(BaseModel):
     class Config:
         orm_mode = True
 
-class PlayerDb(BaseModel):
+class PlayerBase(BaseModel):
     id: int
     name: str
 
     class Config:
         orm_mode = True
+
+class PlayerDb(PlayerBase):
+    events: list
 
 
 class EventIn(BaseModel):
