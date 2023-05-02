@@ -9,7 +9,7 @@ class Player(Base):
     __tablename__ = "players"
 
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True)
+    name = Column(String)
     # events = relationship("events")
 
 class Events(Base):
@@ -19,4 +19,4 @@ class Events(Base):
     type = Column(String)
     detail = Column(String)
     timestamp = Column(DateTime, default=datetime.now().strftime("%Y-%m-%d %H:%M:%S")) # not sure about this
-    player_id = Column(Integer, ForeignKey("players.id"))
+    # player_id = Column(Integer, ForeignKey("players.id"))
