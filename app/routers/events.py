@@ -14,5 +14,5 @@ def get_db():
         db.close()
 
 @router.get('', response_model=list[EventDb], status_code=status.HTTP_200_OK)
-async def get_events(db: Session = Depends(get_db)):
-    return crud_events.read_events(db)
+async def get_events(event_type: str | None = None, db: Session = Depends(get_db)):
+    return crud_events.read_events(db, event_type)
