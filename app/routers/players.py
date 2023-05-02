@@ -13,7 +13,7 @@ def get_db():
     finally:
         db.close()
 
-@router.get('', response_model=list[PlayerDb], status_code=status.HTTP_200_OK)
+@router.get('', response_model=list[PlayerBase], status_code=status.HTTP_200_OK)
 async def get_players(db: Session = Depends(get_db)):
     return crud_players.read_players(db)
 
@@ -25,6 +25,10 @@ def add_player(player_in: PlayerIn, db: Session = Depends(get_db)):
 def get_player_data(id: int, db: Session = Depends(get_db)):
     return crud_players.read_player_data(db, id)
 
-@router.post('/{id}/events', status_code=status.HTTP_200_OK)
+@router.get('/{id}/events', status_code=status.HTTP_200_OK)
+def get_player_events(id: int, event_type: str, db: Session = Depends(get_db)):
+    return crud_players.read_player_events(db, id, event_type)
+
+@router.post('/{id}/events', status_code=status.HTTP_201_CREATED)
 def create_event(id: int, event_in: EventIn, db: Session = Depends(get_db)):
     return crud_players.create_event(db, id, event_in)

@@ -14,6 +14,9 @@ def add_player(db: Session, player_in: schemas.PlayerIn):
 def read_player_data(db: Session, user_id: int):
     return db.query(models.Player).filter(models.Player.id == user_id).first()
 
+def read_player_events(db: Session, user_id: int, event_type: str):
+    return db.query(models.Events).filter(models.Events.player_id == user_id, models.Events.type == event_type).all()
+
 def create_event(db: Session, user_id: int, event_in: schemas.EventIn):
     event = models.Events(**event_in.dict())
     event.player_id = user_id
