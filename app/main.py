@@ -9,7 +9,3 @@ app = FastAPI()
 
 app.include_router(players.router)
 app.include_router(events.router)
-
-@app.get("/")
-def root():
-    return {"message": "Hello World"}
